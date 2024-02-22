@@ -1,0 +1,2 @@
+﻿  ConsoleApplication1.cpp
+LINK : fatal error LNK1168: cannot open E:\Code\C++\DSA\ConsoleApplication1\x64\Debug\ConsoleApplication1.exe for writing

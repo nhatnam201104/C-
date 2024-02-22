@@ -1,0 +1,19 @@
+﻿  main.cpp
+E:\Code\C++\DSA\linkedlist_usetemplate\linkedlist_usetemplate\LinkedList.cpp(121,14): error C2228: left of '.Next' must have class/struct/union
+E:\Code\C++\DSA\linkedlist_usetemplate\linkedlist_usetemplate\LinkedList.cpp(121,14): message : type is 'Node<T> *'
+          with
+          [
+              T=int
+          ]
+E:\Code\C++\DSA\linkedlist_usetemplate\linkedlist_usetemplate\LinkedList.cpp(121,14): message : did you intend to use '->' instead?
+E:\Code\C++\DSA\linkedlist_usetemplate\linkedlist_usetemplate\LinkedList.cpp(101,1): message : while compiling class template member function 'void LinkedList<int>::RemoveIndex(int)'
+E:\Code\C++\DSA\linkedlist_usetemplate\linkedlist_usetemplate\main.cpp(36,27): message : see the first reference to 'LinkedList<int>::RemoveIndex' in 'main'
+E:\Code\C++\DSA\linkedlist_usetemplate\linkedlist_usetemplate\main.cpp(9,21): message : see reference to class template instantiation 'LinkedList<int>' being compiled
+E:\Code\C++\DSA\linkedlist_usetemplate\linkedlist_usetemplate\LinkedList.cpp(139,12): error C2440: 'return': cannot convert from 'Node<T> *' to 'int'
+          with
+          [
+              T=int
+          ]
+E:\Code\C++\DSA\linkedlist_usetemplate\linkedlist_usetemplate\LinkedList.cpp(139,12): message : There is no context in which this conversion is possible
+E:\Code\C++\DSA\linkedlist_usetemplate\linkedlist_usetemplate\LinkedList.cpp(127,1): message : while compiling class template member function 'int LinkedList<int>::Search(int)'
+E:\Code\C++\DSA\linkedlist_usetemplate\linkedlist_usetemplate\main.cpp(32,14): message : see the first reference to 'LinkedList<int>::Search' in 'main'
