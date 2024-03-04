@@ -46,7 +46,6 @@ int timDinhGanNhat(vector<vector<int>> &a, vector<bool> &visited, int dinhHienTa
 void tsp(vector<vector<int>> &a, int begin)
 {
     vector<int> routeTmp;
-
     int n = a.size();
     int cost = 0;
 
