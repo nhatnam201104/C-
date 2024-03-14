@@ -1,101 +1,103 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <limits.h>
 #include <algorithm>
-struct thanhpho
-{
-    int bac = 0, mau = 0, dinh;
-};
-#include <map>
-int maumax = 0;
-
 using namespace std;
-void docfile(int &m, vector<vector<int>> &color, vector<thanhpho> &tp)
+struct vertex
 {
-    fstream input("./data/data1.txt", ios::in);
+    int id, bac;
+};
+
+// tim bac lon nhat
+// to mau cho bac lon nhat
+vector<int> colors;
+int mau = 1;
+void docfile(int &m, vector<vector<int>> &matrix, vector<vertex> &dsdinh)
+{
+    fstream input("./data/color4.txt", ios::in);
     input >> m;
-    color.resize(m);
+    dsdinh.resize(m);
+    matrix.resize(m);
     for (int i = 0; i < m; i++)
     {
-        color[i].resize(m);
+        matrix[i].resize(m);
         for (int j = 0; j < m; j++)
         {
-            input >> color[i][j];
+            input >> matrix[i][j];
         }
     }
-    tp.resize(m);
+
     for (int i = 0; i < m; i++)
     {
-        tp[i].dinh = i;
+        dsdinh[i].id = i;
+        int cnt = 0;
         for (int j = 0; j < m; j++)
         {
-            if (color[i][j] == 1)
-            {
-                tp[i].bac++;
-            }
+            if (matrix[i][j] == 1)
+                cnt++;
         }
+        dsdinh[i].bac = cnt;
     }
 }
-void sort(vector<thanhpho> &tp)
+
+void xuat()
 {
-    thanhpho tmp;
-    for (int i = 0; i < tp.size(); i++)
+    for (int i = 0; i < colors.size(); i++)
     {
-        for (int j = i + 1; j < tp.size(); j++)
+        cout << "Dinh " << i + 1 << " to mau " << colors[i] << "\n";
+    }
+}
+
+bool compareInterval(vertex i1, vertex i2)
+{
+    return (i1.bac > i2.bac);
+}
+void tomau(vector<vector<int>> matrix, vector<vertex> &dinh)
+{
+    sort(dinh.begin(), dinh.end(), compareInterval);
+    colors.resize(dinh.size(), 0);
+    bool can_color, all_colored;
+    while (true)
+    {
+        all_colored = true;
+        for (int i = 0; i < dinh.size(); i++)
         {
-            if (tp[i].bac < tp[j].bac)
+            int a = colors[dinh[i].id];
+            if (a == 0)
             {
-                tmp = tp[i];
-                tp[i] = tp[j];
-                tp[j] = tmp;
+                can_color = true;
+                for (int j = 0; j < dinh.size(); j++)
+                {
+                    // kiem tra xem dinh j co ke voi i khong va da duoc to mau do chua
+                    if (matrix[dinh[i].id][dinh[j].id] == 1 && colors[j] == mau)
+                    {
+                        can_color = false;
+                        break;
+                    }
+                }
+                if (can_color)
+                {
+                    colors[dinh[i].id] = mau;
+                    all_colored = false;
+                }
             }
         }
-    }
-}
-
-void tomau(vector<thanhpho> &tp, vector<vector<int>> color)
-{
-
-    sort(tp);
-    for (int i = 0; i < tp.size(); i++)
-    {
-    }
-}
-
-void to(int dinh, vector<vector<int>> color, vector<thanhpho> &tp)
-{
-    tp[dinh].mau =maumax+1;
-    tp [dinh].bac=0;
-    for (int j = 0; j < color[dinh].size(); j++)
-    {
-        if (color [dinh][j]==0)
-            tp[j].bac =0;
-    }
-    maumax++;
-}
-void xuat(int m, vector<thanhpho> color)
-{
-    // for (int i = 0; i < m; i++)
-    // {
-    //     for (int j = 0; j < m; j++)
-    //     {
-    //         cout << color[i][j] << " ";
-    //     }
-    //     cout << "\n";
-    // }
-
-    for (int i = 0; i < color.size(); i++)
-    {
-        cout << color[i].bac << " ";
+        if (all_colored)
+            break;
+        else
+            mau++;
     }
 }
 
 int main()
 {
+    int m = 0;
+    vector<vertex> dinh;
     vector<vector<int>> a;
-    vector<thanhpho> tp;
-    int m;
-    docfile(m, a, tp);
+    docfile(m, a, dinh);
 
-    xuat(m, tp);
+    tomau(a, dinh);
+    xuat();
+    cout << "total: " << mau;
 }
